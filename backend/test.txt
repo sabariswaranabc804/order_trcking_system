@@ -1,0 +1,9 @@
+{
+  "userId": 123,
+  "servType_Name": "Water Service",
+  "serv_Code": "WS001",
+  "serv_Name": "Premium Water Delivery",
+  "serv_Description": "Fast and reliable water delivery service.",
+  "imagefile": "water_image.png",
+  "created_By": 1
+}
