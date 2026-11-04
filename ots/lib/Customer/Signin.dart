@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -348,8 +348,8 @@ class _signInState extends State<signIn> {
     );
   }
 
-  bool checkconnection(ConnectivityResult result) {
-    final hasInternet = result != ConnectivityResult.none;
+  bool checkconnection(List<ConnectivityResult> result) {
+    final hasInternet = result.any((r) => r != ConnectivityResult.none);
     if (hasInternet) {
       return true;
     } else {

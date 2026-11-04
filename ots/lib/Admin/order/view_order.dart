@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:ots/Admin/order/readytodrop.dart';
@@ -859,30 +859,18 @@ class _view_orderState extends State<view_order> {
   void openGoogleMaps(String address) async {
     try {
       // Geocode the address to get the coordinates
-      List<Location> locations = await locationFromAddress(address);
+      List<geo.Location> locations = await geo.Geocoding().locationFromAddress(address);
 
       if (locations.isNotEmpty) {
         final location = locations.first;
 
-        // Get the list of installed map applications
-        final availableMaps = await MapLauncher.installedMaps;
-
-        if (availableMaps.isNotEmpty) {
-          // Find Google Maps from the installed map apps
-          final googleMaps = availableMaps.firstWhere(
-              (map) => map.mapType == MapType.google,
-              orElse: () => throw 'Google Maps not available on this device.');
-
-          // Show the marker on Google Maps at the correct location
-          await googleMaps.showMarker(
-            title: address,
-            coords: Coords(location.latitude, location.longitude),
-          );
-        } else {
-          throw 'No map applications found on the device.';
-        }
+        await MapLauncher.marker(
+          Location.coords(location.latitude, location.longitude, title: address),
+        ).show(map: MapApp.google);
       } else {
-        throw 'Could not find location for the address.';
+        await MapLauncher.marker(
+          Location.search(address),
+        ).show(map: MapApp.google);
       }
     } catch (e) {
       print('Error: $e');

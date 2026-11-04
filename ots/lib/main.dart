@@ -17,12 +17,14 @@ import 'package:http/http.dart' as http;
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox(
-      'cartBox'); // This will open a box (database) for storing cart items.
+    'cartBox',
+  ); // This will open a box (database) for storing cart items.
 
   runApp(MyApp());
 }
 
-String api = "136.185.14.8:8099";
+// String api = "136.185.14.8:8099";
+String api = "192.168.1.10:8099";
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,24 +36,27 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // Use a blue color scheme throughout the app.
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xff004aad), // Blue color for theming
-        ).copyWith(
-          primary: const Color(0xff004aad), // Dark blue for primary color
-          secondary:
-              const Color(0xff68a0cf), // Lighter blue for secondary color
-          background: Colors.white, // Very light blue for background
-          surface: Colors.white, // Surface color
-          onPrimary: Colors.white, // White for text/icons on primary
-          onSecondary: Colors.white, // White for text/icons on secondary
-          onBackground: Colors.white, // Text color for background
-          onSurface: Colors.black, // Text color for surfaces
-        ),
+        colorScheme:
+            ColorScheme.fromSeed(
+              seedColor: const Color(0xff004aad), // Blue color for theming
+            ).copyWith(
+              primary: const Color(0xff004aad), // Dark blue for primary color
+              secondary: const Color(
+                0xff68a0cf,
+              ), // Lighter blue for secondary color
+              background: Colors.white, // Very light blue for background
+              surface: Colors.white, // Surface color
+              onPrimary: Colors.white, // White for text/icons on primary
+              onSecondary: Colors.white, // White for text/icons on secondary
+              onBackground: Colors.white, // Text color for background
+              onSurface: Colors.black, // Text color for surfaces
+            ),
 
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white, // Dark blue app bar
-          iconTheme:
-              IconThemeData(color: Colors.black), // White icons on app bar
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ), // White icons on app bar
           titleTextStyle: TextStyle(
             color: Colors.black, // White text in app bar
             fontSize: 20,
@@ -67,8 +72,9 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor:
-                const Color(0xff004aad), // White text on elevated buttons
+            foregroundColor: const Color(
+              0xff004aad,
+            ), // White text on elevated buttons
           ),
         ),
 
@@ -114,14 +120,15 @@ class _splashscreenState extends State<splashscreen> {
       child: Container(
         child: user_type > 0
             ? user_type == 2
-                ? const Adm_dashboard()
-                : user_type == 5
-                    ? homepage()
-                    : user_type == 4 // Manager
-                        ? App2()
-                        : user_type == 1
-                            ? Container()
-                            : Container()
+                  ? const Adm_dashboard()
+                  : user_type == 5
+                  ? homepage()
+                  : user_type ==
+                        4 // Manager
+                  ? App2()
+                  : user_type == 1
+                  ? Container()
+                  : Container()
             : const homepage(),
       ),
     );
@@ -132,9 +139,12 @@ class _splashscreenState extends State<splashscreen> {
     super.initState();
     getuser();
     Timer(
-        Duration(seconds: 5),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => _role())));
+      Duration(seconds: 5),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => _role()),
+      ),
+    );
   }
 
   @override
@@ -164,15 +174,13 @@ class _splashscreenState extends State<splashscreen> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 170),
-                    child: Text(
-                      'Designed & Developed  by Akilam Technology',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                    )),
+                  padding: const EdgeInsets.only(top: 170),
+                  child: Text(
+                    'Designed & Developed  by Akilam Technology',
+                    style: TextStyle(fontSize: 10.0, color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
           ],

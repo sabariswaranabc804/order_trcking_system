@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  connectivity_plus_linux
   file_selector_linux
   url_launcher_linux
 )

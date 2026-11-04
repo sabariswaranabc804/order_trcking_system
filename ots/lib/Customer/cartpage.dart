@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -171,11 +171,11 @@ class _CartPageState extends State<CartPage> with RouteAware {
         await file.writeAsBytes(uint8List);
 
         // Optionally, save the image to the gallery (if needed)
-        final result = await ImageGallerySaver.saveImage(uint8List);
+        final result = await ImageGallerySaverPlus.saveImage(uint8List);
         print("Image saved to gallery: $result");
 
         // Share the image file using the share_plus package
-        await Share.shareFiles([filePath],
+        await Share.shareXFiles([XFile(filePath)],
             text: 'Here is my UPI QR code for payment!');
       });
     } catch (e) {
@@ -255,8 +255,8 @@ class _CartPageState extends State<CartPage> with RouteAware {
     loadCartItems(); // Refresh cart after updating
   }
 
-  bool checkconnection(ConnectivityResult result) {
-    final hasInternet = result != ConnectivityResult.none;
+  bool checkconnection(List<ConnectivityResult> result) {
+    final hasInternet = result.any((r) => r != ConnectivityResult.none);
     if (hasInternet) {
       return true;
     } else {

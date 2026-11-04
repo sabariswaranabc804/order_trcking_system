@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,8 +21,8 @@ class _add_serviceState extends State<add_service> {
   String? _selectedOption;
   late addserv_model _serv;
   final GlobalKey<FormState> formkey = GlobalKey();
-  bool checkconnection(ConnectivityResult result) {
-    final hasInternet = result != ConnectivityResult.none;
+  bool checkconnection(List<ConnectivityResult> result) {
+    final hasInternet = result.any((r) => r != ConnectivityResult.none);
     if (hasInternet) {
       return true;
     } else {

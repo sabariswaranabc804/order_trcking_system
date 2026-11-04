@@ -38,7 +38,7 @@ dependencies:
   badges: ^4.0.1
   collapsible_sidebar: ^2.0.7
   http: ^1.2.2
-  connectivity: ^3.0.6
+  connectivity_plus: ^6.1.1
   otp_pin_field: ^1.2.9+1
   shared_preferences: ^2.0.9
   flutter_rating_bar: ^4.0.1
@@ -51,7 +51,6 @@ dependencies:
   hive_flutter: ^1.1.0
   sqflite: ^2.0.0+4  # Check for the latest version
   path: ^1.8.0
-  auto_reload: ^1.1.0
   lottie: ^3.8.2
   geolocator: ^14.1.2
   url_launcher: ^6.3.1
@@ -61,9 +60,9 @@ dependencies:
   share_plus: ^13.3.1
   qr_flutter: ^4.0.0
   screenshot: ^3.0.0
-  image_gallery_saver: ^2.0.3
   map_launcher: ^7.0.0
   upgrader: ^13.7.0
+  image_gallery_saver_plus: ^5.1.1
 
 dev_dependencies:
   flutter_test:
@@ -87,17 +86,6 @@ flutter_icons:
   android: true
   ios: true
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^3.0.0
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
 
   # The following line ensures that the Material Icons font is

@@ -83,8 +83,8 @@ class _ViewServiceState extends State<ViewService> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () async {
-                    final pickedFile = await ImagePicker().
-                        .getImage(source: ImageSource.gallery);
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
                     if (pickedFile != null) {
                       setState(() {
                         _imageFile = File(pickedFile.path);

@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -76,8 +76,8 @@ class _ProductPageState extends State<ProductPage> {
   // List to store fetched service names
   late add_product _serv;
   final GlobalKey<FormState> formkey = GlobalKey();
-  bool checkconnection(ConnectivityResult result) {
-    final hasInternet = result != ConnectivityResult.none;
+  bool checkconnection(List<ConnectivityResult> result) {
+    final hasInternet = result.any((r) => r != ConnectivityResult.none);
     if (hasInternet) {
       return true;
     } else {
