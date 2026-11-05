@@ -61,17 +61,24 @@ async function verifyOtp(email, otp) {
         const result = await pool.request()
             .input('email', sql.VarChar, email)
             .input('otp', sql.VarChar, otp)
-            .query('SELECT otp, expires_at,user_Type_ID ,user_Code,company_Id ,deliveryman_id  FROM otp_table WHERE email = @email AND otp = @otp');
+            .query('SELECT TOP 1 otp, expires_at, user_Type_ID, user_Code, company_Id, deliveryman_id FROM otp_table WHERE email = @email AND otp = @otp ORDER BY id DESC');
 
         if (result.recordset.length === 0) {
             return { isValid: false };
         }
 
-        const { expires_at, user_Type_ID ,user_Code,company_Id,deliveryman_id} = result.recordset[0];
-       // const isValid = new Date() <= new Date(expires_at);
-const isValid=true
-        // Return both isValid and user_type
-        return { isValid, user_Type_ID ,user_Code,company_Id,deliveryman_id};
+        // Always fetch the live, current role and user details from user_Master
+        const userResult = await pool.request()
+            .input('email', sql.VarChar, email)
+            .query('SELECT user_Type_ID, user_Code, company_Id, deliveryman_id FROM user_Master WHERE email_ID = @email OR mobile_Number = @email');
+
+        if (userResult.recordset.length > 0) {
+            const { user_Type_ID, user_Code, company_Id, deliveryman_id } = userResult.recordset[0];
+            return { isValid: true, user_Type_ID, user_Code, company_Id, deliveryman_id };
+        }
+
+        const { user_Type_ID, user_Code, company_Id, deliveryman_id } = result.recordset[0];
+        return { isValid: true, user_Type_ID, user_Code, company_Id, deliveryman_id };
     } catch (err) {
         console.error('Error verifying OTP:', err);
         throw err;

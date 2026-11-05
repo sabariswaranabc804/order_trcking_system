@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const otpController = require('../controllers/otpController');
+const authController = require('../controllers/authController');
 
 // Route to get the list of users
 router.get('/users', userController.getUsers);
@@ -20,10 +21,10 @@ router.put('/users/:id', userController.updateUser);
 router.delete('/users/:id', userController.deleteUser);
 
 //otp- verification 
-router.post('/request-otp', otpController.requestOtp);
+router.post('/request-otp', authController.sendOtp);
 
 
-router.post('/verify-otp', otpController.verifyOtp);
+router.post('/verify-otp', authController.verifyOtp);
 
 
 // Add to wishlist

@@ -925,6 +925,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Pie Chart Widget
   Widget _buildPieChart() {
+    final total = myorder + pending + assignedoorder;
+    if (total <= 0) {
+      return PieChart(
+        PieChartData(
+          sections: [
+            PieChartSectionData(
+              value: 100,
+              color: Colors.grey.shade300,
+              title: '',
+              radius: 50,
+            ),
+          ],
+          sectionsSpace: 2,
+        ),
+      );
+    }
     return PieChart(
       PieChartData(
         sections: [
@@ -1034,9 +1050,9 @@ class _App2State extends State<App2> {
   getuser() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      user_type = pref.getInt("user_type")!;
-      userID = pref.getString("userID")!;
-      company_Id = pref.getInt("company_Id")!;
+      user_type = pref.getInt("user_type") ?? 0;
+      userID = pref.getString("userID") ?? "";
+      company_Id = pref.getInt("company_Id") ?? 0;
       deliveryman_id = pref.getInt("deliveryman_id")!;
     });
   }

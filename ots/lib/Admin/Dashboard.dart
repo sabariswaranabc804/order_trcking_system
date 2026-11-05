@@ -35,9 +35,9 @@ class _Adm_dashboardState extends State<Adm_dashboard> {
   getuser() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      user_type = pref.getInt("user_type")!;
-      userID = pref.getString("userID")!;
-      company_Id = pref.getInt("company_Id")!;
+      user_type = pref.getInt("user_type") ?? 0;
+      userID = pref.getString("userID") ?? "";
+      company_Id = pref.getInt("company_Id") ?? 0;
     });
   }
 
@@ -887,45 +887,60 @@ class _OrderStatusPieChartState extends State<OrderStatusPieChart> {
     final processcolor = Color(0xFF90CAF9);
     final cancelcolor = Color(0xFFEF9A9A);
 
-    final total = widget.completed + widget.pending;
+    final total = widget.completed + widget.pending + widget.process + widget.cancel;
+    if (total <= 0) {
+      return [
+        PieChartSectionData(
+          color: Colors.grey.shade300,
+          value: 100,
+          title: '',
+          radius: 50,
+        ),
+      ];
+    }
+
     final completedPercentage = (widget.completed / total) * 100;
     final pendingPercentage = (widget.pending / total) * 100;
     final cancelPercentage = (widget.cancel / total) * 100;
     final processPercentage = (widget.process / total) * 100;
 
     return [
-      PieChartSectionData(
-        color: cancelcolor,
-        value: cancelPercentage,
-        title: '',
-        titleStyle: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
-        radius: 50, // Reduced radius
-      ),
-      PieChartSectionData(
-        color: completedColor,
-        value: completedPercentage,
-        title: '',
-        titleStyle: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
-        radius: 50, // Reduced radius
-      ),
-      PieChartSectionData(
-        color: pendingColor,
-        value: pendingPercentage,
-        title: '',
-        titleStyle: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
-        radius: 50, // Reduced radius
-      ),
-      PieChartSectionData(
-        color: processcolor,
-        value: processPercentage,
-        title: '',
-        titleStyle: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
-        radius: 50, // Reduced radius
-      ),
+      if (cancelPercentage > 0)
+        PieChartSectionData(
+          color: cancelcolor,
+          value: cancelPercentage,
+          title: '',
+          titleStyle: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+          radius: 50,
+        ),
+      if (completedPercentage > 0)
+        PieChartSectionData(
+          color: completedColor,
+          value: completedPercentage,
+          title: '',
+          titleStyle: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+          radius: 50,
+        ),
+      if (pendingPercentage > 0)
+        PieChartSectionData(
+          color: pendingColor,
+          value: pendingPercentage,
+          title: '',
+          titleStyle: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+          radius: 50,
+        ),
+      if (processPercentage > 0)
+        PieChartSectionData(
+          color: processcolor,
+          value: processPercentage,
+          title: '',
+          titleStyle: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+          radius: 50,
+        ),
     ];
   }
 }

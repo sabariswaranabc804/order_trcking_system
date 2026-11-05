@@ -43,9 +43,9 @@ class _homepageState extends State<homepage> {
   getuser() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      user_type = pref.getInt("user_type")!;
-      userID = pref.getString("userID")!;
-      company_Id = pref.getInt("company_Id")!;
+      user_type = pref.getInt("user_type") ?? 0;
+      userID = pref.getString("userID") ?? "";
+      company_Id = pref.getInt("company_Id") ?? 0;
       //print(userID);
     });
   }

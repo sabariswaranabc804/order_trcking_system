@@ -63,6 +63,7 @@ dependencies:
   map_launcher: ^7.0.0
   upgrader: ^13.7.0
   image_gallery_saver_plus: ^5.1.1
+  google_fonts: ^9.0.0
 
 dev_dependencies:
   flutter_test:

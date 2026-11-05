@@ -108,6 +108,7 @@ class _splashscreenState extends State<splashscreen> {
   int user_type = 0;
   getuser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("prefs${prefs}");
     setState(() {
       user_type = prefs.getInt("user_type") ?? 0;
       print("Test${user_type}");

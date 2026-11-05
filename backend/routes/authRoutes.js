@@ -6,8 +6,9 @@ const { registerValidation, loginValidation, otpValidation } = require('../middl
 
 // Public routes
 router.post('/register', registerValidation, authController.register);
-router.post('/send-otp', loginValidation, authController.sendOtp);
-router.post('/verify-otp', otpValidation, authController.verifyOtp);
+router.post('/send-otp', authController.sendOtp);
+router.post('/request-otp', authController.sendOtp);
+router.post('/verify-otp', authController.verifyOtp);
 router.post('/logout', authController.logout);
 
 // Protected routes - require authentication

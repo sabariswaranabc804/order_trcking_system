@@ -188,10 +188,17 @@ class _signInState extends State<signIn> {
         var jsonResponse = json.decode(response.body);
         print('Login Successful: $jsonResponse');
         verify = response.body;
-        int user_type = jsonResponse['user_type'];
-        int deliveryman_id = jsonResponse['deliveryman_id'];
-        String userID = jsonResponse['userID'];
-        int company_Id = jsonResponse['company_Id'];
+        final userData = (jsonResponse is Map && jsonResponse['user'] is Map)
+            ? jsonResponse['user']
+            : jsonResponse;
+
+        int user_type = int.tryParse(userData['user_type']?.toString() ?? '') ?? 0;
+        int? deliveryman_id = userData['deliveryman_id'] != null
+            ? int.tryParse(userData['deliveryman_id'].toString())
+            : null;
+        String userID = userData['userID']?.toString() ?? '';
+        int company_Id = int.tryParse(userData['company_Id']?.toString() ?? '') ?? 0;
+        String token = jsonResponse['token']?.toString() ?? '';
 
         if (verify != "Invalid or expired OTP") {
           if (user_type == 5) {
@@ -199,6 +206,9 @@ class _signInState extends State<signIn> {
             await prefs.setInt('user_type', user_type);
             await prefs.setString('userID', userID);
             await prefs.setInt('company_Id', company_Id);
+            if (token.isNotEmpty) {
+              await prefs.setString('token', token);
+            }
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
               return const homepage();
@@ -208,6 +218,9 @@ class _signInState extends State<signIn> {
             await prefs.setInt('user_type', user_type);
             await prefs.setString('userID', userID);
             await prefs.setInt('company_Id', company_Id);
+            if (token.isNotEmpty) {
+              await prefs.setString('token', token);
+            }
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
               return const Adm_dashboard();
@@ -217,7 +230,12 @@ class _signInState extends State<signIn> {
             await prefs.setInt('user_type', user_type);
             await prefs.setString('userID', userID);
             await prefs.setInt('company_Id', company_Id);
-            await prefs.setInt('deliveryman_id', deliveryman_id);
+            if (token.isNotEmpty) {
+              await prefs.setString('token', token);
+            }
+            if (deliveryman_id != null) {
+              await prefs.setInt('deliveryman_id', deliveryman_id);
+            }
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
               return App2();

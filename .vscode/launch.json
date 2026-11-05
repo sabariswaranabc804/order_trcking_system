@@ -1,0 +1,48 @@
+{
+     // Use IntelliSense to learn about possible attributes.
+     // Hover to view descriptions of existing attributes.
+     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+     "version": "0.2.0",
+     "configurations": [
+          {
+               "name": "ots",
+               "cwd": "ots",
+               "request": "launch",
+               "type": "dart"
+          },
+          {
+               "name": "ots (profile mode)",
+               "cwd": "ots",
+               "request": "launch",
+               "type": "dart",
+               "flutterMode": "profile"
+          },
+          {
+               "name": "ots (release mode)",
+               "cwd": "ots",
+               "request": "launch",
+               "type": "dart",
+               "flutterMode": "release"
+          },
+          {
+               "name": "OTS",
+               "cwd": "mobile\\OTS",
+               "request": "launch",
+               "type": "dart"
+          },
+          {
+               "name": "OTS (profile mode)",
+               "cwd": "mobile\\OTS",
+               "request": "launch",
+               "type": "dart",
+               "flutterMode": "profile"
+          },
+          {
+               "name": "OTS (release mode)",
+               "cwd": "mobile\\OTS",
+               "request": "launch",
+               "type": "dart",
+               "flutterMode": "release"
+          }
+     ]
+}

@@ -1,6 +1,20 @@
 //const { sql } = require('../config/database');
 const { sql, poolPromise } = require('../db');
 class User {
+  static async findByEmailOrMobile(identifier) {
+    try {
+      const pool = await poolPromise;
+      const result = await pool.request()
+        .input('id', sql.VarChar, identifier)
+        .query('SELECT * FROM user_Master WHERE (email_ID = @id OR mobile_Number = @id) AND active_Flag = 1');
+      return result.recordset[0];
+    } catch (error) {
+      console.error('Error finding user by email or mobile:', error);
+      throw error;
+    }
+  }
+
+
   // Check if email exists
   static async findByEmail(email) {
     console.log("email",email,typeof(email));
@@ -141,6 +155,9 @@ WHERE [user_ID] = SCOPE_IDENTITY();
         SELECT * FROM user_Master 
         WHERE email_ID = ${email} AND otp = ${otp}
       `;
+
+  console.log('verifyOtp',result);    
+      
       return result.recordset[0];
     } catch (error) {
       console.error('Error verifying OTP:', error);
